@@ -1,18 +1,21 @@
-import { useTheme } from "next-themes";
+/*
+ * Design philosophy: Dark Cinematic — los toasts deben sentirse como una señal
+ * de consola: oscuros, legibles y discretos, sin depender de un proveedor de tema
+ * externo que no existe en esta aplicación.
+ */
+import * as React from "react";
 import { Toaster as Sonner, type ToasterProps } from "sonner";
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme();
-
   return (
     <Sonner
-      theme={theme as ToasterProps["theme"]}
+      theme="dark"
       className="toaster group"
       style={
         {
-          "--normal-bg": "var(--popover)",
-          "--normal-text": "var(--popover-foreground)",
-          "--normal-border": "var(--border)",
+          "--normal-bg": "var(--panel)",
+          "--normal-text": "var(--paper)",
+          "--normal-border": "var(--line)",
         } as React.CSSProperties
       }
       {...props}
