@@ -18,7 +18,6 @@ import {
   Menu,
   Mic2,
   Music2,
-  Pause,
   Radio,
   SlidersHorizontal,
   Sparkles,
@@ -106,7 +105,6 @@ function scrollToSection(id: string) {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scene, setScene] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   const handleNav = (id: string) => {
     setMenuOpen(false);
@@ -115,8 +113,8 @@ export default function Home() {
 
   const handleBrief = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    toast.success("Brief recebido. Envia os detalhes pelo Instagram para abrir a conversa.");
-    setTimeout(() => window.open("https://instagram.com/duck4s", "_blank", "noopener,noreferrer"), 450);
+    toast.success("A conversa vai abrir no Instagram. Leva o teu briefing contigo.");
+    window.open("https://instagram.com/duck4s", "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -136,11 +134,11 @@ export default function Home() {
               <button key={id} onClick={() => handleNav(id)}>{label}</button>
             ))}
           </nav>
-          <button className="menu-trigger" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}>
+          <button type="button" className="menu-trigger" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-controls="mobile-nav" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}>
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
-        <div className="mobile-nav" aria-hidden={!menuOpen}>
+        <div id="mobile-nav" className="mobile-nav" hidden={!menuOpen}>
           {navItems.map(([id, label], index) => (
             <button key={id} onClick={() => handleNav(id)}><span>0{index + 1}</span>{label}<ArrowUpRight size={16} /></button>
           ))}
@@ -167,7 +165,7 @@ export default function Home() {
             <div className="hero-status"><span className="status-pulse" /> Signal online <span>·</span> 2026</div>
             <div className="hero-scene-switcher" aria-label="Mudar imagem do estúdio">
               {scenes.map((item, index) => (
-                <button key={item.label} className={scene === index ? "active" : ""} onClick={() => setScene(index)} aria-label={`Ver cena ${item.label}`}>
+                <button type="button" key={item.label} className={scene === index ? "active" : ""} onClick={() => setScene(index)} aria-pressed={scene === index} aria-label={`Ver cena ${item.label}: ${item.title}`}>
                   <span>{item.label}</span><span className="scene-line" /><span>{item.title}</span>
                 </button>
               ))}
@@ -231,9 +229,7 @@ export default function Home() {
             <span className="release-index">0{index + 1}</span><span className={`release-cover release-cover--${release.accent}`}><Disc3 size={26} /><span className="cover-signal" aria-hidden="true"><i /><i /><i /><i /><i /></span></span><span className="release-title">{release.title}</span><span className="release-meta">{release.type} · {release.year}</span><ArrowUpRight className="release-arrow" size={20} />
           </a>)}
         </div>
-        <div className="catalogue-player">
-          <button onClick={() => setIsPlaying((playing) => !playing)} className="player-button" aria-label={isPlaying ? "Pausar prévia" : "Reproduzir prévia"}>{isPlaying ? <Pause size={17} /> : <CirclePlay size={17} />}</button><div className="player-wave"><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /></div><span>{isPlaying ? "preview / playing" : "preview / disponível em breve"}</span>
-        </div>
+        <a className="catalogue-player" href="https://music.apple.com/us/artist/duck4x/1744132409" target="_blank" rel="noreferrer" aria-label="Ouvir o catálogo Duck no Apple Music"><span className="player-button" aria-hidden="true"><CirclePlay size={17} /></span><span className="player-wave" aria-hidden="true"><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /></span><span>preview / ouvir no Apple Music</span><ArrowUpRight size={15} aria-hidden="true" /></a>
       </section>
 
       <section id="estudio" className="studio-section section-shell">
@@ -243,7 +239,7 @@ export default function Home() {
 
       <section id="contacto" className="contact-section section-shell">
         <div className="section-marker"><span>05</span><span className="marker-rule" /><AudioWaveform className="marker-signal" size={14} aria-hidden="true" /><span>Contato</span></div>
-        <div className="contact-grid"><div className="contact-heading"><p className="section-kicker">Tens uma faixa a caminho?</p><h2>Vamos dar<br /><em>forma.</em></h2><p>Conta o ponto em que estás, a direção que imaginas e o que precisa acontecer a seguir. O primeiro passo é uma boa conversa.</p><div className="contact-details"><a href="https://instagram.com/duck4s" target="_blank" rel="noreferrer"><Instagram size={17} /> @duck4s <ArrowUpRight size={15} /></a><a href="https://open.spotify.com/artist/duck4x" target="_blank" rel="noreferrer"><Headphones size={17} /> Ouvir no Spotify <ArrowUpRight size={15} /></a><span><CalendarDays size={17} /> Agenda aberta para 2026</span></div></div><form className="brief-form" onSubmit={handleBrief}><div className="form-heading"><span>BRIEF / 001</span><span>2 min</span></div><label>Como te chamas?<input required name="name" placeholder="Nome artístico ou banda" /></label><label>Que tipo de ajuda precisas?<select name="service" defaultValue="production"><option value="production">Produção musical</option><option value="mix">Mixagem</option><option value="master">Masterização</option><option value="direction">Direção criativa</option></select></label><label>Fala-me da faixa<textarea required name="message" rows={4} placeholder="Referências, prazo, estado atual..." /></label><button className="button button--primary button--full" type="submit">Enviar briefing <ArrowUpRight size={17} /></button><p className="form-note">Ao enviar, abrimos a conversa no Instagram. Sem spam, sem formulários intermináveis.</p></form></div>
+        <div className="contact-grid"><div className="contact-heading"><p className="section-kicker">Tens uma faixa a caminho?</p><h2>Vamos dar<br /><em>forma.</em></h2><p>Conta o ponto em que estás, a direção que imaginas e o que precisa acontecer a seguir. O primeiro passo é uma boa conversa.</p><div className="contact-details"><a href="https://instagram.com/duck4s" target="_blank" rel="noreferrer"><Instagram size={17} /> @duck4s <ArrowUpRight size={15} /></a><a href="https://open.spotify.com/artist/duck4x" target="_blank" rel="noreferrer"><Headphones size={17} /> Ouvir no Spotify <ArrowUpRight size={15} /></a><span><CalendarDays size={17} /> Agenda aberta para 2026</span></div></div><form className="brief-form" onSubmit={handleBrief} aria-describedby="form-note"><div className="form-heading"><span>BRIEF / 001</span><span>2 min</span></div><label htmlFor="brief-name">Como te chamas?<input id="brief-name" required type="text" name="name" autoComplete="name" minLength={2} maxLength={80} placeholder="Nome artístico ou banda" /></label><label htmlFor="brief-service">Que tipo de ajuda precisas?<select id="brief-service" name="service" defaultValue="production"><option value="production">Produção musical</option><option value="mix">Mixagem</option><option value="master">Masterização</option><option value="direction">Direção criativa</option></select></label><label htmlFor="brief-message">Fala-me da faixa<textarea id="brief-message" required name="message" rows={4} minLength={12} maxLength={1200} placeholder="Referências, prazo, estado atual..." /></label><button className="button button--primary button--full" type="submit">Enviar briefing <ArrowUpRight size={17} /></button><p id="form-note" className="form-note">Ao enviar, abrimos a conversa no Instagram. O briefing não fica guardado nesta página.</p></form></div>
       </section>
 
       <footer className="site-footer"><div className="footer-brand"><img src={assets.logo} alt="" /><span>DUCK<span>.</span></span><AudioWaveform className="footer-signal" size={18} aria-hidden="true" /></div><div className="footer-note">Produção musical com intenção.<br />Aracaju, Sergipe · Brasil</div><div className="footer-meta"><span>© {new Date().getFullYear()} Duck</span><span>Built for the signal</span><button onClick={() => scrollToSection("hero")} aria-label="Voltar ao topo"><ArrowDownRight size={17} /></button></div></footer>

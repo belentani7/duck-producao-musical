@@ -113,3 +113,9 @@
 
 ## Nota de auditoría
 Esta lista es un registro operativo; la auditoría final debe reescribirse como documento legible y con evidencia.
+
+## Iteración autónoma 2026-08-20
+- [ ] Ejecutar audit, type-check y build después de los cambios de accesibilidad.
+- [ ] Revisar visualmente desktop y mobile y confirmar que no hay regresiones.
+- [ ] Sincronizar el commit de mejoras con el repositorio privado de GitHub.
+- [ ] Actualizar el checkpoint del proyecto después de validar la iteración.

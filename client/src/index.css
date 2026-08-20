@@ -59,6 +59,7 @@ img { display: block; max-width: 100%; }
 .desktop-nav button:hover, .mobile-nav button:hover, .mobile-nav a:hover { color: var(--lime); transform: translateX(3px); }
 .menu-trigger { display: none; width: 44px; height: 44px; margin-left: auto; place-items: center; border: 1px solid var(--line); background: rgba(19,33,24,.7); color: var(--lime); }
 .mobile-nav { display: none; }
+.mobile-nav[hidden] { display: none !important; }
 
 .hero-section { position: relative; min-height: min(900px, 100vh); isolation: isolate; background: var(--ink); }
 .hero-backdrop, .hero-gradient, .hero-grid-lines { position: absolute; inset: 0; pointer-events: none; }
