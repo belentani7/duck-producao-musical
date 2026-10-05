@@ -15,7 +15,7 @@
   "dependencies": {
     "@radix-ui/react-tooltip": "^1.2.16",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.453.0",
+    "lucide-react": "^1.49.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "sonner": "^2.0.8",
